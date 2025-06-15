@@ -11,7 +11,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [PrimaryController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/test', [TestController::class, 'index'])->name('test');
+Route::get('/generate/base64/code', [TestController::class, 'generate_base64_encode'])->name('generate.base64.encode');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
