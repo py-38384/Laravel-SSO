@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\TokenController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PrimaryController;
 
-Route::get('/', [PrimaryController::class,'index'])->name('home');
-Route::get('/identity', [PrimaryController::class,'identify'])->name('identify');
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
+Route::get('/identity', [TokenController::class,'identify'])->name('identify');

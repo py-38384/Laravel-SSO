@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
-
-class PrimaryController extends Controller
+class TokenController extends Controller
 {
     public function identify(Request $request){
         $token = SharedEncrypt::decrypt($request->get("token"));
