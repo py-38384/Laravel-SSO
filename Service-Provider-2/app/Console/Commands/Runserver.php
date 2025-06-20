@@ -27,10 +27,15 @@ class Runserver extends Command
      */
     public function handle()
     {
-        $this->info('Starting server at http://serviceprovider2.local:8000');
+        // $this->info('Starting server at http://serviceprovider2.local:8000');
 
-        $process = Process::fromShellCommandline('php artisan serve --host=serviceprovider2.local --port=8000');
-        $process->setTty(true); // allows interactive output
-        $process->run();
+        // $process = Process::fromShellCommandline('php artisan serve --host=serviceprovider2.local --port=8000');
+        // $process->setTty(true); // allows interactive output
+        // $process->run();
+
+        $this->call('serve', [
+        '--host' => 'serviceprovider2.local',
+        '--port' => '8000',
+        ]);
     }
 }

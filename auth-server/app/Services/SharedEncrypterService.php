@@ -19,6 +19,10 @@ class SharedEncrypterService
         return $this->encrypter->encrypt($value);
     }
     public function decrypt($value){
-        return $this->encrypter->decrypt($value);
+        try{
+            return $this->encrypter->decrypt($value);
+        } catch(\Exception $e){
+            return null;
+        }
     }
 }

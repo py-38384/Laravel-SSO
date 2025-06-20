@@ -17,8 +17,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    
     Route::get('redirect/token',[RedirectTokenController::class,'index'])->name('redirect.token');
 });
+Route::get('token-logout', [PrimaryController::class, 'token_logout'])->name('token.logout');
 
 require __DIR__.'/auth.php';

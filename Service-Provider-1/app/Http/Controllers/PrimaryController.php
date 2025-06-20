@@ -31,6 +31,7 @@ class PrimaryController extends Controller
             }
             Cache::forever('authenticated', true);
             Cache::forever('token', $token);
+            Cache::forever('rawToken', $request->get("token"));
             Cache::forever('user_local_id', $user->id);
             Cache::forever('user_remote_id', $user->user_id);
             return redirect(route('home'));
