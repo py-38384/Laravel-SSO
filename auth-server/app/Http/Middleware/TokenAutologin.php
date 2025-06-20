@@ -18,9 +18,9 @@ class TokenAutologin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $rawToken = $request->get("token");
-        if($rawToken) {
-            $token = SharedEncrypt::decrypt($rawToken);
+        $encryptedToken = $request->get("token");
+        if($encryptedToken) {
+            $token = SharedEncrypt::decrypt($encryptedToken);
             if(Auth::guard("web")->guest() && $token){
                 $accessToken = PersonalAccessToken::findToken($token);
                 $user = $accessToken?->tokenable;

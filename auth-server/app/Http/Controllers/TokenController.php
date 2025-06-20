@@ -15,12 +15,12 @@ class TokenController extends Controller
         return $user->toArray();
     }
     public function token_logout(Request $request) {
-        $rawToken = $request->get('token');
+        $encryptedToken = $request->get('token');
         $next = $request->get('next');
-        if(!$rawToken){
+        if(!$encryptedToken){
             abort(404);
         }
-        $token = SharedEncrypt::decrypt($rawToken);
+        $token = SharedEncrypt::decrypt($encryptedToken);
         $accessToken = PersonalAccessToken::findToken($token);
         $user = $accessToken?->tokenable;
         if(!$user){
@@ -49,7 +49,7 @@ class TokenController extends Controller
             }
             $token = auth()->user()->createToken("token");
             $plain_text_token = $token->plainTextToken;
-            $token_id = $token->accessToken->id;;
+            $token_id = $token->accessToken->id;
 
             $newSanctumKey = new SanctumKey();
             $newSanctumKey->user_id = $user->id;
