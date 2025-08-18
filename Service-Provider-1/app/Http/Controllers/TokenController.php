@@ -16,11 +16,11 @@ class TokenController extends Controller
                 ->accept('application/json')
                 ->get(config('app.auth_server_get_user_data_url'));
         if ($response->successful()) {
-                    $data = $response->json();
-                    $user = null;
-                    if(User::where('user_id',$data['id'])->exists()){
-                        $user = User::where('user_id',$data['id'])->first();
-                    } else {
+                $data = $response->json();
+                $user = null;
+                if(User::where('user_id',$data['id'])->exists()){
+                    $user = User::where('user_id',$data['id'])->first();
+                } else {
                 $user = User::create([
                     'user_id'=> $data['id'],
                     'name'=> $data['name'],
