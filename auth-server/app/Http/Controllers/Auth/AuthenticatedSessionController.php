@@ -26,9 +26,11 @@ class AuthenticatedSessionController extends Controller
         if($request->exists('next')){
             $this->next = $request->next;
         }
+
         $request->authenticate();
 
         $request->session()->regenerate();
+
         if($this->next){
             return redirect(route('redirect.token').'?next='.$this->next);
         }
@@ -41,9 +43,11 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         $user = Auth::user();
-        $token_id = Auth::user()->token->token_id;
-        $user->tokens()->where('id', $token_id)->delete();
-        Auth::user()->token->delete();
+        if(isset(Auth::user()->token)){
+            $token_id = Auth::user()->token->token_id;
+            $user->tokens()->where('id', $token_id)->delete();
+            Auth::user()->token->delete();
+        }
         
 
         Auth::guard('web')->logout();

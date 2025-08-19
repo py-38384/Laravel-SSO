@@ -19,12 +19,12 @@ class TokenAuthentication
     public function handle(Request $request, Closure $next): Response
     {
         $authenticated = cache("authenticated");
-        // dd($authenticated);
         if ($authenticated) {
             $token = cache("token");
             $response = Http::withToken($token)
-            ->accept('application/json')
-            ->get('http://authserver.local:8000/api/get/user/data');
+                ->accept('application/json')
+                ->get(config('app.auth_server_get_user_data_url'));
+
             if ($response->successful()) {
                 $data = $response->json();
                 

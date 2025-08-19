@@ -18,13 +18,13 @@ class TokenController extends Controller
         $encryptedToken = $request->get('token');
         $next = $request->get('next');
         if(!$encryptedToken){
-            abort(404);
+            return redirect()->back();
         }
         $token = SharedEncrypt::decrypt($encryptedToken);
         $accessToken = PersonalAccessToken::findToken($token);
         $user = $accessToken?->tokenable;
         if(!$user){
-            abort(404);
+            return redirect()->back();
         }
         $token_id = $user->token->token_id;
         $user->tokens()->where('id', $token_id)->delete();
